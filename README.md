@@ -72,3 +72,7 @@ On Windows you can use task scheduler to run this script automatically when you 
     cd PathToYourGitCloneofZoomRecorder
     call python zoom.py -m=66666666666 -t=60 -p=test
 Then you can create a task in task scheduler to run this bat file when your meeting is about to begin. You can use this guide as a reference https://www.digitalcitizen.life/how-create-task-basic-task-wizard/
+
+## Custom Setup
+
+My recommendation is to have a single computer dedicated to auto recording zoom meetings. This computer would be set to never go to sleep, and have the proper zoom account already logged into. My advice is to also give this computer a **dedicated headset**, that way your audio/microphones don't change in zoom or OBS. Make sure you have enough disk space to store the recordings as well. 
