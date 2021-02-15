@@ -1,6 +1,7 @@
 import pyautogui 
 import argparse
 import time
+import psutil
 
 
 def main():
@@ -18,6 +19,13 @@ def record(meet_id, record_time, passcode=""):
     pyautogui.press('esc',interval=0.1)
     time.sleep(0.2)
 
+    #Opening OBS to record
+    pyautogui.press('win',interval=0.1)
+    pyautogui.write('obs')
+    pyautogui.press('enter',interval=0.5)
+    time.sleep(5)
+    pyautogui.press('pause') #"pause key set as hot key on OBS to record
+
     #these lines are simulating starting up zoom by pressing windows key and typing zoom to open program
     pyautogui.press('win',interval=0.1)
     pyautogui.write('zoom')
@@ -33,6 +41,7 @@ def record(meet_id, record_time, passcode=""):
     pyautogui.click(x,y)
     pyautogui.press('enter',interval=1)
     ## the interval of 1 second is important, if not there, then the meeting id will not be inputted
+    time.sleep(3)
     pyautogui.write(meet_id)
     pyautogui.press('enter',interval=1)
 
@@ -46,29 +55,19 @@ def record(meet_id, record_time, passcode=""):
         pyautogui.write(passcode, interval = 0.2)
         pyautogui.press('enter',interval = 1)
 
-    time.sleep(5)
-    ## opening up windows game bar overlay
-    pyautogui.hotkey('win','g')
-    time.sleep(1)
-    ## commencing screen recording
-    pyautogui.hotkey('win','alt','r')
-    time.sleep(1)
-    ## closing windows game bar overlay
-    pyautogui.hotkey('win','g')
 
     #Time to record
     t = record_time*60
     time.sleep(t)
 
-    ## ending screen recording
-    pyautogui.hotkey('win','alt','r')
-    time.sleep(2)
-    ## By default, screen captures are sent to a folder called captures in "videos" in "this PC"
+    #Stopping recording
+    pyautogui.press('pause') #pause key set as hot key on OBS to record
+    time.sleep(3)
+    #Stopping obs and zoom
+    for proc in psutil.process_iter():
+        if proc.name() in ["obs64.exe", "Zoom.exe"]:
+            proc.kill()
 
-    ## closing Zoom
-    pyautogui.hotkey('alt','f4')
-    time.sleep(0.5)
-    pyautogui.hotkey('alt','f4')
 
 
 if __name__ == "__main__":
