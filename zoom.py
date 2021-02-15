@@ -1,22 +1,55 @@
 import pyautogui 
 import argparse
 import time
+import os
 
+from pywinauto.application import Application
+from pywinauto.keyboard import SendKeys
 
 def main():
+    #Creating recording folder if doesn't exist
+    if not os.path.exists('Recordings'):
+        os.makedirs('Recordings')
     # Initialize parser
     parser = argparse.ArgumentParser()
     parser.add_argument("-m", "--MeetId", help = "Meeting ID")
     parser.add_argument("-t", "--time", help = "Time to record (mins)")
     parser.add_argument("-p", "--passcode", help = "Passcode to meeting (if no passcode, don't use)")
     args = parser.parse_args()
-    record(args.MeetId, float(args.time), args.passcode)
+    # record(args.MeetId, float(args.time), args.passcode)
+    z = Zoom(args.MeetId,args.passcode)
+    time.sleep(5)
+    z.join_meeting()
+    print("asdf")
+
+class Zoom():
+    def __init__(self,MeetId:str,passcode:str = ""):
+        self.meet_id = MeetId
+        self.passcode = passcode
+        self.zoom = Application(backend="uia").start("C:\\Users\\Flutter\\AppData\\Roaming\\Zoom\\bin\\zoom.exe")
+
+    def join_meeting(self):
+        self.zoom.app.Zoom.Join.click()
+        SendKeys(self.meet_id)
+        self.zoom.app.Join.click()
+        print()
+
+
 
 
 def record(meet_id, record_time, passcode=""):
     #esc clicked to ensure that the win key will open up correctly in the next step
     pyautogui.press('esc',interval=0.1)
     time.sleep(0.2)
+
+    #Starting OBS
+    pyautogui.press('win',interval=0.1)
+    pyautogui.write('obs')
+    pyautogui.press('enter',interval=0.5)
+
+    #Starting recording
+    time.sleep(5)
+    pyautogui.press('pause',interval=0.1) #pause key setup in OBS as start recording key
 
     #these lines are simulating starting up zoom by pressing windows key and typing zoom to open program
     pyautogui.press('win',interval=0.1)
@@ -46,22 +79,22 @@ def record(meet_id, record_time, passcode=""):
         pyautogui.write(passcode, interval = 0.2)
         pyautogui.press('enter',interval = 1)
 
-    time.sleep(5)
-    ## opening up windows game bar overlay
-    pyautogui.hotkey('win','g')
-    time.sleep(1)
-    ## commencing screen recording
-    pyautogui.hotkey('win','alt','r')
-    time.sleep(1)
-    ## closing windows game bar overlay
-    pyautogui.hotkey('win','g')
+    # time.sleep(5)
+    # ## opening up windows game bar overlay
+    # pyautogui.hotkey('win','g')
+    # time.sleep(1)
+    # ## commencing screen recording
+    # pyautogui.hotkey('win','alt','r')
+    # time.sleep(1)
+    # ## closing windows game bar overlay
+    # pyautogui.hotkey('win','g')
 
     #Time to record
     t = record_time*60
     time.sleep(t)
 
     ## ending screen recording
-    pyautogui.hotkey('win','alt','r')
+    pyautogui.press('pause',interval=0.1) #pause key setup in OBS as start recording key
     time.sleep(2)
     ## By default, screen captures are sent to a folder called captures in "videos" in "this PC"
 
