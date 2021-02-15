@@ -11,6 +11,8 @@ def main():
     parser.add_argument("-t", "--time", help = "Time to record (mins)")
     parser.add_argument("-p", "--passcode", help = "Passcode to meeting (if no passcode, don't use)")
     args = parser.parse_args()
+    if not args.MeetId: raise ValueError("No meeting ID given. Add it as an argument with -m")
+    if not args.time: raise ValueError("No record time given. Add it as an argument with -t")
     record(args.MeetId, float(args.time), args.passcode)
 
 
@@ -19,7 +21,7 @@ def record(meet_id, record_time, passcode=""):
     for proc in psutil.process_iter():
         if proc.name() in ["obs64.exe", "Zoom.exe"]:
             proc.kill()
-            
+
     #esc clicked to ensure that the win key will open up correctly in the next step
     pyautogui.press('esc',interval=0.1)
     time.sleep(0.2)
@@ -29,7 +31,7 @@ def record(meet_id, record_time, passcode=""):
     pyautogui.write('obs')
     pyautogui.press('enter',interval=0.5)
     time.sleep(5)
-    pyautogui.press('pause') #"pause key set as hot key on OBS to record
+    pyautogui.press('pause') #pause key set as hot key on OBS to record
 
     #these lines are simulating starting up zoom by pressing windows key and typing zoom to open program
     pyautogui.press('win',interval=0.1)
@@ -66,7 +68,8 @@ def record(meet_id, record_time, passcode=""):
     time.sleep(t)
 
     #Stopping recording
-    pyautogui.press('pause') #pause key set as hot key on OBS to record
+    time.sleep(5)
+    pyautogui.press('pause') #pause key set as hot key on OBS to stop recording
     time.sleep(3)
     #Stopping obs and zoom
     for proc in psutil.process_iter():
