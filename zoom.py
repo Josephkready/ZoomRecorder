@@ -30,7 +30,7 @@ def record(meet_id, record_time, passcode=""):
     pyautogui.press('win',interval=0.1)
     pyautogui.write('obs')
     pyautogui.press('enter',interval=0.5)
-    time.sleep(10)
+    time.sleep(6)
     pyautogui.press('pause') #pause key set as hot key on OBS to record
 
     #these lines are simulating starting up zoom by pressing windows key and typing zoom to open program
