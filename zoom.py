@@ -15,6 +15,11 @@ def main():
 
 
 def record(meet_id, record_time, passcode=""):
+    #Making sure OBS and zoom aren't running at start
+    for proc in psutil.process_iter():
+        if proc.name() in ["obs64.exe", "Zoom.exe"]:
+            proc.kill()
+            
     #esc clicked to ensure that the win key will open up correctly in the next step
     pyautogui.press('esc',interval=0.1)
     time.sleep(0.2)
