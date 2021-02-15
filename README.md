@@ -1,5 +1,5 @@
 # ZoomRecorder
-Automated zoom meeting recorder with full desktop and audio support. Built for **windows**. This uses the installable version of Zoom and OBS. Shout out to https://github.com/BigchillRK/Zoom-Meeting-and-Recording to source code and inspiration. He has great explanations of the setup, so I am coping most of the setup information from there. 
+Automated zoom meeting recorder with full desktop and audio support. Built for **windows**. This uses the installable version of Zoom and OBS. Shout out to https://github.com/BigchillRK/Zoom-Meeting-and-Recording for the source code and inspiration. He has great explanations of the setup, so I am coping most of the setup information from there. 
 
 
 # Installation
