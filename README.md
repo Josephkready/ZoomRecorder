@@ -5,8 +5,7 @@ Automated zoom meeting recorder with full desktop and audio support. Built for *
 # Installation
 1. Install zoom https://zoom.us/download
 2. Install OBS https://obsproject.com/welcome
-3. Clone the repo to a directory
-    git clone https://github.com/Josephkready/ZoomRecorder.git
+3. Clone the repo to a directory `git clone https://github.com/Josephkready/ZoomRecorder.git`
 4. Install requirements `pip install -r requirements.txt`
 5. Follow through with configuration 3 steps...
 6. Schedule recordings in task scheduler (optional)
